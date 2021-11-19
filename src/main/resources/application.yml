@@ -8,7 +8,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     properties:
       hibernate:
         show_sql: true
@@ -26,6 +26,6 @@ logging.level:
 
 # HS512 ????? ??? ??? ??? 512bit, ? 64byte ??? secret key? ???? ??.
 # secret ?? ?? ???? Base64? ???? ?? ????(?? ???? ???? ?? ??)
-# echo 'ThisIsSecretKeyForSpringSecurityAndJWT-practiceProject' | base64
+# echo 'ThisIsSecretKeyForSpringSecurityAndJWTpracticeProject-spring-boot-security-jwt-tutorial' | base64
 jwt:
-  secret: VGhpc0lzU2VjcmV0S2V5Rm9yU3ByaW5nU2VjdXJpdHlBbmRKV1QtcHJhY3RpY2VQcm9qZWN0Cg==
+  secret: VGhpc0lzU2VjcmV0S2V5Rm9yU3ByaW5nU2VjdXJpdHlBbmRKV1RwcmFjdGljZVByb2plY3Qtc3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsCg==

@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class JwtTokenProvider {
-    private static final String AUTHORITES_KEY = "auth";
+    private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "bearer";
     private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30; // 30분
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7; // 7일
@@ -46,7 +46,7 @@ public class JwtTokenProvider {
         Date accessTokenExpireIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
         String accessToken = Jwts.builder()
                                 .setSubject(authentication.getName()) // payload "sub" : "name" --> 유저정보를 가져온다.(username)
-                                .claim(AUTHORITES_KEY, authorities) // payload "auth" : "ROLE_USER"
+                                .claim(AUTHORITIES_KEY, authorities) // payload "auth" : "ROLE_USER"
                                 .setExpiration(accessTokenExpireIn) // payload "exp" : 23115235(예시)
                                 .signWith(key, SignatureAlgorithm.HS512) // header "alg" : "HS512"
                                 .compact();
@@ -72,13 +72,13 @@ public class JwtTokenProvider {
         // 토큰 복호화
         Claims claims = parseClaims(accessToken);
 
-        if (claims.get(AUTHORITES_KEY) == null) {
+        if (claims.get(AUTHORITIES_KEY) == null) {
             throw new RuntimeException("권한 정보가 없는 토큰입니다.");
         }
 
         // claim에서 권한 정보 가져오기
         Collection<? extends GrantedAuthority> authorities =
-                Arrays.stream(claims.get(AUTHORITES_KEY).toString().split(","))
+                Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
